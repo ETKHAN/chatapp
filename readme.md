@@ -40,6 +40,7 @@ This is the **backend** for a real-time chat application. It provides core funct
 /chat-backend
 │
 ├── controllers/     # Route logic (auth, messages, users)
+├── db/              # database code (connections, etc.)
 ├── models/          # MongoDB schemas (User, Message, etc.)
 ├── routes/          # API route definitions
 ├── sockets/         # Socket.IO event handlers
@@ -55,8 +56,8 @@ This is the **backend** for a real-time chat application. It provides core funct
 
 1. **Clone the repo:**
    ```bash
-   git clone https://github.com/yourusername/chat-app-backend.git
-   cd chat-app-backend
+   git clone https://github.com/ETKHAN/chatapp.git
+   cd chatapp
    ```
 
 2. **Install dependencies:**
