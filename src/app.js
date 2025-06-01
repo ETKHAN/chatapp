@@ -19,12 +19,28 @@ app.use(express.static("public"));
 
 app.use(cookieParser());
 
-app.use(urlencoded({limit:"16kb"}));
+// app.use(urlencoded({limit:"16kb"}));
 
 app.use(express.urlencoded({
   extended: true,
-  limit: "16kb"
+  // limit: "16kb"
 }));
 
+app.use(express.json());
+
+
+
+
+
+// User router
+import userRouter from "./routers/user.router.js";
+
+app.use("/api/v1/user", userRouter);
+
+
+
+
+import errorHandler from "./utils/errorHandler.js";
+app.use(errorHandler); 
 
 export {app}
