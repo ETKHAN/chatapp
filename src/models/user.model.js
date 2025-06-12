@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema(
   {
@@ -43,6 +44,27 @@ userSchema.pre("save", async function(next){
     console.log("ERROR: unable to hash the password!", error);
     next(error);
   }
-})
+});
+
+userSchema.methods.isPasswordCorrect = async function (password){
+
+  return await bcrypt.compare(password, this.password);
+}
+
+userSchema.methods.generateRefreshToken = async function(){
+  return jwt.sign(
+    { _id: this._id},
+    process.env.REFRESH_TOKEN_SECRET,
+    { expiresIn: process.env.REFRESH_TOKEN_EXPIRES }
+  )
+}
+
+userSchema.methods.generateAccessToken = async function(){
+  return jwt.sign(
+    { _id: this._id},
+    process.env.ACCESS_TOKEN_SECRET,
+    { expiresIn: process.env.ACCESS_TOKEN_EXPIRES }
+  )
+}
 
 export const User = mongoose.model("User", userSchema);
